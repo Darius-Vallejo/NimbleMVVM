@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>clientId</key>
+	<string>ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE</string>
+	<key>clientSecret</key>
+	<string>lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU</string>
+	<key>baseURL</key>
+	<string>https://survey-api.nimblehq.co/api/v1/</string>
+</dict>
+</plist>
