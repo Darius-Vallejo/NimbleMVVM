@@ -15,8 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let router = AuthenticationCoordinator.start()
+        let router = HomeCoordinator.start()
         let initialVC = router.entry
+        KeychainManager.shared.testToken("lc8zrxONbxLm5nr2jaFOm9E26512AMuE8i1JtKj-mXI")
         window?.rootViewController = initialVC
         return true
     }

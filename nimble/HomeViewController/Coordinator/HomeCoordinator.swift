@@ -10,25 +10,38 @@ import UIKit
 
 class HomeCoordinator: Coordinator {
     weak var entry: UINavigationController?
+    var onFinish: (() -> Void)?
     
     static func start() -> Coordinator {
-        var router = HomeCoordinator()
-        let viewModel = LoginViewModel(services: Services.shared())
-        let loginController = LoginViewController(viewModel: viewModel)
-        let initialViewController = UIViewController()
-        let home = HomePageViewController(transitionStyle: .scroll,
-                                          navigationOrientation: .horizontal)
-        let navigationController = UINavigationController(rootViewController: home)
-        loginController.coordinator = router
+        let router = HomeCoordinator()
+        let viewModel = HomeViewModel(services: Services.shared())
+        let homeController = HomePageViewController(viewModel: viewModel, transitionStyle: .scroll)
+        let navigationController = UINavigationController(rootViewController: homeController)
+        homeController.coordinator = router
         router.entry = navigationController
 
         return router
     }
     
-    func finish(completion: CoordinatorCompletion) {
-        entry?.popToRootViewController(animated: false)
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .red
-        entry?.present(viewController, animated: true)
+    func open(module: Module) {
+        var router = AuthenticationCoordinator.start()
+        if let authenticatorNavigation = router.entry {
+            authenticatorNavigation.modalPresentationStyle = .fullScreen
+            entry?.present(authenticatorNavigation, animated: true)
+            router.onFinish = {[weak self] in
+                self?.handleAuthenticationCompletion()
+            }
+        }
+    }
+
+    func finish(completion: CoordinatorCompletion) { }
+    
+    // Reloading surveys in the HomeViewModel
+    // Aaccessing the viewModel from the entry point
+    // and calling a method to trigger the reload
+    private func handleAuthenticationCompletion() {
+        if let homeViewController = entry?.viewControllers.first as? HomePageViewController {
+            homeViewController.viewModel.loadSurveys()
+        }
     }
 }

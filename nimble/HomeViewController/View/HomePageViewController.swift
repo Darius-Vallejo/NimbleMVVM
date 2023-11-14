@@ -11,13 +11,10 @@ import RxSwift
 
 class HomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     var coordinator: Coordinator?
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
 
-    private var viewModel: HomeViewModel {
-        didSet {
-            
-        }
-    }
+    let viewModel: HomeViewModel
+    private var viewControllerList: [UIViewController] = []
     
     init(viewModel: HomeViewModel, transitionStyle: UIPageViewController.TransitionStyle) {
         self.viewModel = viewModel
@@ -28,28 +25,30 @@ class HomePageViewController: UIPageViewController, UIPageViewControllerDataSour
         fatalError("init(coder:) has not been implemented")
     }
 
-    lazy var viewControllerList: [UIViewController] = {
-        let firstViewController = UIViewController()
-        firstViewController.view.backgroundColor = .red
-
-        let secondViewController = UIViewController()
-        secondViewController.view.backgroundColor = .green
-
-        let thirdViewController = UIViewController()
-        thirdViewController.view.backgroundColor = .blue
-
-        return [firstViewController, secondViewController, thirdViewController]
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.dataSource = self
         self.delegate = self
-
-        if let firstViewController = viewControllerList.first {
-            setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
-        }
+        setupViewModel()
+        viewModel.loadSurveys()
+    }
+    
+    private func setupViewModel() {
+        viewModel
+            .data
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                switch $0 {
+                case .loadSurvey(let surveys):
+                    self?.loadSurveys(list: surveys)
+                case .requestLogin:
+                    self?.coordinator?.open(module: .login)
+                case .none:
+                    break
+                }
+            })
+            .disposed(by: bag)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -66,5 +65,22 @@ class HomePageViewController: UIPageViewController, UIPageViewControllerDataSour
         }
 
         return viewControllerList[currentIndex + 1]
+    }
+
+    func loadSurveys(list: [SurveyViewModel]) {
+        viewControllerList = list.map { SurveyViewController(viewModel: $0) }
+        if let firstViewController = viewControllerList.first {
+            setViewControllers([firstViewController],
+                               direction: .forward,
+                               animated: true,
+                               completion: nil)
+        } else {
+            let vc = UIViewController()
+            vc.view.backgroundColor = .red
+            setViewControllers([vc],
+                               direction: .forward,
+                               animated: true,
+                               completion: nil)
+        }
     }
 }

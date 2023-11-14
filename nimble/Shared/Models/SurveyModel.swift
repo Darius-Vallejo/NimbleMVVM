@@ -21,6 +21,10 @@ struct SurveyModel {
         case description
         case coverImageUrl
     }
+    
+    var hightDefinitionCoverImage: String {
+        return coverImageUrl + "l"
+    }
 }
 
 extension SurveyModel: Decodable {

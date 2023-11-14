@@ -1,8 +1,8 @@
 //
 //  LoginViewModel.swift
-//  nimble
+//  Nimble
 //
-//  Created by darius vallejo on 11/8/23.
+//  Created by darius vallejo on 11/11/23.
 //
 
 import Foundation
@@ -13,7 +13,7 @@ class LoginViewModel {
     
     enum Updates {
         case none
-        case requestLogin
+        case finishWith(authentication: AuthModel)
     }
     
     private let services: UserServices
@@ -26,13 +26,16 @@ class LoginViewModel {
     init(services: UserServices) {
         self.services = services
     }
-    
-    func loadSurveys() {
-        guard let accessToken = KeychainManager.shared.getAccessToken(),
-           let refreshToken = KeychainManager.shared.getRefreshToken() else {
-            dataSubject.onNext(.requestLogin)
-            return
-        }   
-    }
 
+    func login(email: String, password: String) {
+        services
+            .login(email: email, password: password)
+            .map { auth in
+                KeychainManager.shared.saveTokens(auth.accessToken, refreshToken: auth.refreshToken)
+                return Updates.finishWith(authentication: auth)
+            }
+            .bind(to: dataSubject)
+            .disposed(by: bag)
+    }
+    
 }

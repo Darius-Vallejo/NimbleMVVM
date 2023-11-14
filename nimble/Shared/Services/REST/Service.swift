@@ -12,11 +12,13 @@ protocol UserServices: AnyService {
     func login(email: String, password: String) -> Observable<AuthModel>
 }
 
-protocol SurveyServices: UserServices {
+protocol SurveyServices: AnyService {
     func getSurveyList() -> Observable<[SurveyModel]>
+    func renewToken(refreshToken: String)  -> Observable<AuthModel>
 }
 
-class Services: UserServices {
+class Services: SurveyServices, UserServices {
+    var auth: AuthModel?
     
     private init() {}
     
@@ -34,11 +36,28 @@ class Services: UserServices {
             "password": password,
             "client_id": ResourceType.clientId.getConfig(),
             "client_secret": ResourceType.clientSecret.getConfig(),
-            "grant_type": "password"
+            "grant_type": BodyGrantType.password.rawValue
         ]
         let requestBody = try? JSONSerialization.data(withJSONObject: body)
-        return post(url: ServiceDefinitions.auth, body: requestBody, type: AuthModel.self)
+        return post(url: ServiceDefinitions.auth, body: requestBody, type: AuthModel.self, useAuth: false)
     }
     
-    func 
+    func getSurveyList() -> Observable<[SurveyModel]> {
+        let urlString = ServiceDefinitions.surveys
+        return rx_get(url: urlString, type: [SurveyModel].self)
+    }
+    
+    func renewToken(refreshToken: String)  -> Observable<AuthModel> {
+        let body: [String: String?] = [
+            "client_id": ResourceType.clientId.getConfig(),
+            "client_secret": ResourceType.clientSecret.getConfig(),
+            "grant_type": BodyGrantType.refresh.rawValue,
+            "refresh_token": refreshToken
+        ]
+        let requestBody = try? JSONSerialization.data(withJSONObject: body)
+        return post(url: ServiceDefinitions.auth,
+                    body: requestBody,
+                    type: AuthModel.self,
+                    useAuth: false)
+    }
 }

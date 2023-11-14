@@ -8,17 +8,15 @@
 import Foundation
 import UIKit
 
-struct AuthenticationCoordinator: Coordinator {
+class AuthenticationCoordinator: Coordinator {
     weak var entry: UINavigationController?
+    var onFinish: (() -> Void)?
     
     static func start() -> Coordinator {
-        var router = AuthenticationCoordinator()
+        let router = AuthenticationCoordinator()
         let viewModel = LoginViewModel(services: Services.shared())
         let loginController = LoginViewController(viewModel: viewModel)
-        let initialViewController = UIViewController()
-        let home = HomePageViewController(transitionStyle: .scroll,
-                                          navigationOrientation: .horizontal)
-        let navigationController = UINavigationController(rootViewController: home)
+        let navigationController = UINavigationController(rootViewController: loginController)
         loginController.coordinator = router
         router.entry = navigationController
 
@@ -26,10 +24,8 @@ struct AuthenticationCoordinator: Coordinator {
     }
     
     func finish(completion: CoordinatorCompletion) {
-        entry?.popToRootViewController(animated: false)
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .red
-        entry?.present(viewController, animated: true)
+        entry?.dismiss(animated: true)
+        onFinish?()
     }
 
 }

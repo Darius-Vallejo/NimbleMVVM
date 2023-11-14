@@ -15,12 +15,14 @@ class KeychainManager {
     private let accessTokenKey = "AccessToken"
     private let refreshTokenKey = "RefreshToken"
 
-    func saveAccessToken(_ accessToken: String) {
+    func saveTokens(_ accessToken: String, refreshToken: String) {
         saveToKeychain(value: accessToken, forKey: accessTokenKey)
-    }
-
-    func saveRefreshToken(_ refreshToken: String) {
         saveToKeychain(value: refreshToken, forKey: refreshTokenKey)
+    }
+    
+    func testToken(_ refreshToken: String) {
+        saveToKeychain(value: "", forKey: accessTokenKey)
+        saveToKeychain(value: "", forKey: refreshTokenKey)
     }
 
     func getAccessToken() -> String? {

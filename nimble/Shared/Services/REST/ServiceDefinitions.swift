@@ -14,4 +14,5 @@ struct ServiceDefinitions {
     }()
     
     static let auth = "\(base)oauth/token"
+    static let surveys = "\(base)surveys"
 }

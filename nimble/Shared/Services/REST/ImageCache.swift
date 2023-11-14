@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import RxSwift
+import RxCocoa
 
 class ImageCache {
     static let shared = ImageCache()
@@ -48,23 +49,5 @@ class ImageCache {
             }
         }
         .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-    }
-}
-
-extension UIImageView {
-    func load(from url: String, bag: DisposeBag) {
-        ImageCache.shared.loadImage(with: url)
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] image in
-                if let image = image {
-                    UIView.animate(withDuration: 0.5, delay: 0) {
-                        self?.image = image
-                    }
-                } else {
-                    self?.backgroundColor = .white
-                    print("URL Error")
-                }
-            })
-            .disposed(by: bag)
     }
 }
