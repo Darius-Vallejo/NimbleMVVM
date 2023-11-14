@@ -32,6 +32,7 @@ class HomePageViewController: UIPageViewController, UIPageViewControllerDataSour
         self.delegate = self
         setupViewModel()
         viewModel.loadSurveys()
+        loadSurveys(list: [])
     }
     
     private func setupViewModel() {
@@ -68,19 +69,43 @@ class HomePageViewController: UIPageViewController, UIPageViewControllerDataSour
     }
 
     func loadSurveys(list: [SurveyViewModel]) {
-        viewControllerList = list.map { SurveyViewController(viewModel: $0) }
+        viewControllerList = list.map {
+            let controller = SurveyViewController(viewModel: $0)
+            controller.coordinator = coordinator
+            return controller
+        }
         if let firstViewController = viewControllerList.first {
             setViewControllers([firstViewController],
                                direction: .forward,
-                               animated: true,
+                               animated: false,
                                completion: nil)
         } else {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .red
-            setViewControllers([vc],
+            let loadingController = SurveyViewController(viewModel: viewModel.getLoadingSurvey())
+            viewControllerList = [loadingController]
+            setViewControllers([loadingController],
                                direction: .forward,
                                animated: true,
                                completion: nil)
         }
     }
 }
+
+#if DEBUG
+extension HomePageViewController {
+    var testHooks: TestHooks {
+        .init(target: self)
+    }
+
+    class TestHooks {
+        let target: HomePageViewController
+        init(target: HomePageViewController) {
+            self.target = target
+        }
+
+        var viewControllerList: [UIViewController] {
+            return target.viewControllerList
+        }
+        
+    }
+}
+#endif

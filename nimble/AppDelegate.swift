@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         let router = HomeCoordinator.start()
         let initialVC = router.entry
-        KeychainManager.shared.testToken("lc8zrxONbxLm5nr2jaFOm9E26512AMuE8i1JtKj-mXI")
         window?.rootViewController = initialVC
         return true
     }

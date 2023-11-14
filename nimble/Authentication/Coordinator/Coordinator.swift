@@ -14,12 +14,13 @@ enum CoordinatorCompletion {
 
 enum Module {
     case login
+    case detail(viewModel: SurveyViewModel)
 }
 
 protocol Coordinator {
     var entry: UINavigationController? { get }
-    var onFinish: (() -> Void)? { set get }
-    static func start() -> Coordinator
+    var onFinish: (() -> Void)? { get set }
+    static func start(keychainManager: KeychainRecordable) -> Coordinator
     func finish(completion: CoordinatorCompletion)
     func open(module: Module)
 }

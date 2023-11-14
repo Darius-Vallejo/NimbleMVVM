@@ -8,7 +8,13 @@
 import Foundation
 import Security
 
-class KeychainManager {
+protocol KeychainRecordable {
+    func saveTokens(_ accessToken: String, refreshToken: String)
+    func getAccessToken() -> String?
+    func getRefreshToken() -> String?
+}
+
+class KeychainManager: KeychainRecordable {
     static let shared = KeychainManager()
 
     private let service = "NimbleService"
@@ -18,11 +24,6 @@ class KeychainManager {
     func saveTokens(_ accessToken: String, refreshToken: String) {
         saveToKeychain(value: accessToken, forKey: accessTokenKey)
         saveToKeychain(value: refreshToken, forKey: refreshTokenKey)
-    }
-    
-    func testToken(_ refreshToken: String) {
-        saveToKeychain(value: "", forKey: accessTokenKey)
-        saveToKeychain(value: "", forKey: refreshTokenKey)
     }
 
     func getAccessToken() -> String? {

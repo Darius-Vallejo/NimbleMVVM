@@ -171,7 +171,7 @@ class LoginViewController: UIViewController {
         stackContainer.addSubview(stackView, yConstant: 0, xConstant: 0)
         view.addSubview(stackContainer, yConstant: 153, xConstant: 24)
     }
-    
+
     private func setupActions() {
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }

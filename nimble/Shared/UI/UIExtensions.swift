@@ -27,13 +27,6 @@ extension UIImageView {
     }
 }
 
-extension UIImage {
-    static func load(from url: String) -> Observable<UIImage?> {
-        return ImageCache.shared.loadImage(with: url)
-            .observe(on: MainScheduler.instance)
-    }
-}
-
 extension UIView {
     func addSubview(_ subview: UIView, yConstant: CGFloat, xConstant: CGFloat) {
         subview.translatesAutoresizingMaskIntoConstraints = false
@@ -54,13 +47,6 @@ extension UIFont {
         case heavy
         case normal
     }
-
-    static func printNames() {
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
-    }
     
     static func customFont(type: FontType, size: CGFloat) -> UIFont {
         let name = type == .heavy ? "NeuzeitSLTStd-BookHeavy" : "NeuzeitSLTStd-Book"
@@ -68,5 +54,15 @@ extension UIFont {
             return UIFont.systemFont(ofSize: size)
         }
         return customFont
+    }
+}
+
+extension UIViewController {
+    func createLabel(withText text: String, size: CGFloat, type: UIFont.FontType = .heavy) -> UILabel {
+        let label = UILabel()
+        label.textColor = .white
+        label.text = text
+        label.font = UIFont.customFont(type: type, size: size)
+        return label
     }
 }

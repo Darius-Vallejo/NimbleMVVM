@@ -11,6 +11,7 @@ import RxSwift
 
 class SurveyViewController: UIViewController {
     let viewModel: SurveyViewModel
+    var coordinator: Coordinator?
     private let bag = DisposeBag()
     
     init(viewModel: SurveyViewModel) {
@@ -119,8 +120,16 @@ class SurveyViewController: UIViewController {
     private func setupUI() {
         let topStackView = topStackView()
         let bottomContainer = bottomStackView()
+        var middleView = UIView()
+        if viewModel.isLoading {
+            topStackView.isHidden = true
+            bottomContainer.isHidden = true
+            let loadingView = UIActivityIndicatorView(style: .whiteLarge)
+            loadingView.startAnimating()
+            middleView = UIStackView(arrangedSubviews: [loadingView])
+        }
         let mainStackView = UIStackView(arrangedSubviews: [topStackView,
-                                                           UIView(),
+                                                           middleView,
                                                            bottomContainer])
         mainStackView.axis = .vertical
         mainStackView.spacing = 32
@@ -139,15 +148,7 @@ class SurveyViewController: UIViewController {
         layer0.position = view.center
         backgroundContainer.layer.addSublayer(layer0)
     }
-    
-    private func createLabel(withText text: String, size: CGFloat, type: UIFont.FontType = .heavy) -> UILabel {
-        let label = UILabel()
-        label.textColor = .white
-        label.text = text
-        label.font = UIFont.customFont(type: type, size: size)
-        return label
-    }
-    
+
     private func createOvalImageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "userImage")
@@ -191,7 +192,7 @@ class SurveyViewController: UIViewController {
     }
     
     @objc private func buttonTapped() {
-        
+        coordinator?.open(module: .detail(viewModel: viewModel))
     }
     
 }

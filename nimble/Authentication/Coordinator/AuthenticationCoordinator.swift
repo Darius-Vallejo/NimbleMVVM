@@ -12,7 +12,7 @@ class AuthenticationCoordinator: Coordinator {
     weak var entry: UINavigationController?
     var onFinish: (() -> Void)?
     
-    static func start() -> Coordinator {
+    static func start(keychainManager: KeychainRecordable = KeychainManager.shared) -> Coordinator {
         let router = AuthenticationCoordinator()
         let viewModel = LoginViewModel(services: Services.shared())
         let loginController = LoginViewController(viewModel: viewModel)

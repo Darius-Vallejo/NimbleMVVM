@@ -23,38 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1C3A62E6-CCFA-43A5-B554-22DAD6659FE6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nimble/Authentication/ViewModel/LoginViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "login(email:password:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A938BE8D-4848-4BE7-9155-CA256E813B25"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nimble/Authentication/Coordinator/AuthenticationCoordinator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "finish(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "033382F4-B328-4842-86CB-E8512882FAC9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -78,8 +46,8 @@
             filePath = "nimble/Shared/UI/UIExtensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "customFont(type:size:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -87,65 +55,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A86324C2-E5B0-4C09-B27C-8DB1C1929B21"
+            uuid = "11D4E7F4-9D46-4E10-A483-40F8F85C69B5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nimble/HomeViewController/Coordinator/HomeCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "handleAuthenticationCompletion()"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "open(module:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A86324C2-E5B0-4C09-B27C-8DB1C1929B21 - e5345518c574a16c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Nimble.HomeCoordinator.handleAuthenticationCompletion() -&gt; ()"
-                  moduleName = "Nimble"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dariovallejo/Documents/Nimble/nimble/nimble/HomeViewController/Coordinator/HomeCoordinator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  uuid = "A86324C2-E5B0-4C09-B27C-8DB1C1929B21 - e5345518c574a16c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Nimble.HomeCoordinator.handleAuthenticationCompletion() -&gt; ()"
-                  moduleName = "Nimble"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dariovallejo/Documents/Nimble/nimble/nimble/HomeViewController/Coordinator/HomeCoordinator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43"
-                  offsetFromSymbolStart = "396">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ECD0D8C7-D66A-4914-89E0-2E37E024106B"
-            shouldBeEnabled = "Yes"
+            uuid = "B20389E4-2DF2-44AB-98B9-00D098E3F75F"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nimble/HomeViewController/Coordinator/HomeCoordinator.swift"
+            filePath = "nimble/HomeViewController/VieModel/HomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "open(module:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "loadSurveys(reloadToken:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B20389E4-2DF2-44AB-98B9-00D098E3F75F - 2fadfb7e8c55884c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nimble.HomeViewModel.loadSurveys(reloadToken: Swift.Bool) -&gt; ()"
+                  moduleName = "Nimble"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dariovallejo/Documents/Nimble/nimble/nimble/HomeViewController/VieModel/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "B20389E4-2DF2-44AB-98B9-00D098E3F75F - 2fadfb7e8c55884c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Nimble.HomeViewModel.loadSurveys(reloadToken: Swift.Bool) -&gt; ()"
+                  moduleName = "Nimble"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dariovallejo/Documents/Nimble/nimble/nimble/HomeViewController/VieModel/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "232">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

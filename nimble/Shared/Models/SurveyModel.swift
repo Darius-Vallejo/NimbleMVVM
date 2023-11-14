@@ -25,6 +25,12 @@ struct SurveyModel {
     var hightDefinitionCoverImage: String {
         return coverImageUrl + "l"
     }
+    
+    init(title: String, description: String, coverImageUrl: String) {
+        self.title = title
+        self.description = description
+        self.coverImageUrl = coverImageUrl
+    }
 }
 
 extension SurveyModel: Decodable {
